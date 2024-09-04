@@ -7,92 +7,92 @@ using System.IO;
 
 namespace RepoZ.Api.Common.Common
 {
-	public class FileAppSettingsService : IAppSettingsService
-	{
-		private AppSettings _settings;
-		private readonly List<Action> _invalidationHandlers = new List<Action>();
+    public class FileAppSettingsService : IAppSettingsService
+    {
+        private AppSettings _settings;
+        private readonly List<Action> _invalidationHandlers = new List<Action>();
 
-		public FileAppSettingsService(IAppDataPathProvider appDataPathProvider)
-		{
-			AppDataPathProvider = appDataPathProvider ?? throw new ArgumentNullException(nameof(appDataPathProvider));
-		}
+        public FileAppSettingsService(IAppDataPathProvider appDataPathProvider)
+        {
+            AppDataPathProvider = appDataPathProvider ?? throw new ArgumentNullException(nameof(appDataPathProvider));
+        }
 
-		private AppSettings Load()
-		{
-			string file = GetFileName();
+        private AppSettings Load()
+        {
+            string file = GetFileName();
 
-			if (File.Exists(file))
-			{
-				try
-				{
-					var json = File.ReadAllText(file);
-					return JsonConvert.DeserializeObject<AppSettings>(json);
-				}
-				catch { /* Our app settings are not critical. For our purposes, we want to ignore IO exceptions */ }
-			}
+            if (File.Exists(file))
+            {
+                try
+                {
+                    var json = File.ReadAllText(file);
+                    return JsonConvert.DeserializeObject<AppSettings>(json);
+                }
+                catch { /* Our app settings are not critical. For our purposes, we want to ignore IO exceptions */ }
+            }
 
-			return AppSettings.Default;
-		}
+            return AppSettings.Default;
+        }
 
-		private void Save()
-		{
-			string file = GetFileName();
-			string path = Directory.GetParent(file).FullName;
+        private void Save()
+        {
+            string file = GetFileName();
+            string path = Directory.GetParent(file).FullName;
 
-			if (!Directory.Exists(path))
-				Directory.CreateDirectory(path);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-			try
-			{
-				File.WriteAllText(GetFileName(), JsonConvert.SerializeObject(_settings));
-			}
-			catch { /* Our app settings are not critical. For our purposes, we want to ignore IO exceptions */ }
-		}
+            try
+            {
+                File.WriteAllText(GetFileName(), JsonConvert.SerializeObject(_settings));
+            }
+            catch { /* Our app settings are not critical. For our purposes, we want to ignore IO exceptions */ }
+        }
 
-		private string GetFileName() => Path.Combine(AppDataPathProvider.GetAppDataPath(), "appsettings.json");
+        private string GetFileName() => Path.Combine(AppDataPathProvider.GetAppDataPath(), "appsettings.json");
 
-		public IAppDataPathProvider AppDataPathProvider { get; }
+        public IAppDataPathProvider AppDataPathProvider { get; }
 
-		public AppSettings Settings
-		{
-			get
-			{
-				if (_settings == null)
-					_settings = Load();
+        public AppSettings Settings
+        {
+            get
+            {
+                if (_settings == null)
+                    _settings = Load();
 
-				return _settings;
-			}
-		}
+                return _settings;
+            }
+        }
 
-		public AutoFetchMode AutoFetchMode
-		{
-			get => Settings.AutoFetchMode;
-			set
-			{
-				if (value != Settings.AutoFetchMode)
-				{
-					Settings.AutoFetchMode = value;
+        public AutoFetchMode AutoFetchMode
+        {
+            get => Settings.AutoFetchMode;
+            set
+            {
+                if (value != Settings.AutoFetchMode)
+                {
+                    Settings.AutoFetchMode = value;
 
-					NotifyChange();
-					Save();
-				}
-			}
-		}
+                    NotifyChange();
+                    Save();
+                }
+            }
+        }
 
-		public bool PruneOnFetch
-		{
-			get => Settings.PruneOnFetch;
-			set
-			{
-				if (value != Settings.PruneOnFetch)
-				{
-					Settings.PruneOnFetch = value;
+        public bool PruneOnFetch
+        {
+            get => Settings.PruneOnFetch;
+            set
+            {
+                if (value != Settings.PruneOnFetch)
+                {
+                    Settings.PruneOnFetch = value;
 
-					NotifyChange();
-					Save();
-				}
-			}
-		}
+                    NotifyChange();
+                    Save();
+                }
+            }
+        }
 
         public double MenuWidth
         {
@@ -125,13 +125,13 @@ namespace RepoZ.Api.Common.Common
         }
 
         public void RegisterInvalidationHandler(Action handler)
-		{
-			_invalidationHandlers.Add(handler);
-		}
+        {
+            _invalidationHandlers.Add(handler);
+        }
 
-		public void NotifyChange()
-		{
-			_invalidationHandlers.ForEach(h => h.Invoke());
-		}
-	}
+        public void NotifyChange()
+        {
+            _invalidationHandlers.ForEach(h => h.Invoke());
+        }
+    }
 }

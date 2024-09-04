@@ -3,22 +3,22 @@ using System.Threading.Tasks;
 
 namespace RepoZ.Api.Git
 {
-	public interface IRepositoryMonitor
-	{
-		event EventHandler<Repository> OnChangeDetected;
+    public interface IRepositoryMonitor
+    {
+        event EventHandler<Repository> OnChangeDetected;
 
-		event EventHandler<string> OnDeletionDetected;
+        event EventHandler<string> OnDeletionDetected;
 
-		event EventHandler<bool> OnScanStateChanged;
+        event EventHandler<bool> OnScanStateChanged;
 
-		void Stop();
+        void Stop();
 
-		void Observe();
+        void Observe();
 
-		void Reset();
+        void Reset();
 
-		Task ScanForLocalRepositoriesAsync();
+        Task ScanForLocalRepositoriesAsync();
 
-		void IgnoreByPath(string path);
-	}
+        void IgnoreByPath(string path);
+    }
 }

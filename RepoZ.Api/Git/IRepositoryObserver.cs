@@ -2,14 +2,14 @@
 
 namespace RepoZ.Api.Git
 {
-	public interface IRepositoryObserver : IDisposable
-	{
-		void Setup(Repository repository, int detectionToAlertDelayMilliseconds);
+    public interface IRepositoryObserver : IDisposable
+    {
+        void Setup(Repository repository, int detectionToAlertDelayMilliseconds);
 
-		void Start();
+        void Start();
 
-		void Stop();
+        void Stop();
 
-		Action<Repository> OnChange { get; set; }
-	}
+        Action<Repository> OnChange { get; set; }
+    }
 }

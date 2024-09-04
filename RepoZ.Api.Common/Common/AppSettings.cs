@@ -1,5 +1,4 @@
 ﻿using RepoZ.Api.Common.Git.AutoFetch;
-using System.Drawing;
 
 namespace RepoZ.Api.Common.Common
 {

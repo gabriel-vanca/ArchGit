@@ -2,14 +2,14 @@
 
 namespace grr.Messages
 {
-	public interface IMessage
-	{
-		string GetRemoteCommand();
+    public interface IMessage
+    {
+        string GetRemoteCommand();
 
-		void Execute(Repository[] repositories);
+        void Execute(Repository[] repositories);
 
-		bool HasRemoteCommand { get; }
+        bool HasRemoteCommand { get; }
 
-		bool ShouldWriteRepositories(Repository[] repositories);
-	}
+        bool ShouldWriteRepositories(Repository[] repositories);
+    }
 }

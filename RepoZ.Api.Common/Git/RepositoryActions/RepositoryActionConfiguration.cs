@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace RepoZ.Api.Common.Git
 {
-	public class RepositoryActionConfiguration
-	{
+    public class RepositoryActionConfiguration
+    {
         [JsonProperty("repository-actions")]
         public List<RepositoryAction> RepositoryActions { get; set; } = new List<RepositoryAction>();
 

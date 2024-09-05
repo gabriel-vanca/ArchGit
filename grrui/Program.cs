@@ -20,6 +20,10 @@ namespace grrui
 
         static void Main(string[] args)
         {
+#if DEBUG
+            Console.WriteLine("Waiting a few seconds for server to initialise and load the data...");
+            System.Threading.Thread.Sleep(7000);
+#endif
             _client = new IpcClient(new DefaultIpcEndpoint());
             var answer = _client.GetRepositories();
 
@@ -45,7 +49,7 @@ namespace grrui
                 Y = Pos.Top(filterLabel),
                 Width = Dim.Fill(margin: 1),
             };
-            _filterField.Changed += FilterField_Changed;
+            _filterField.TextChanged += FilterField_Changed;
 
             _repositoryList = new ListView(_repositoriesView.Repositories)
             {
@@ -57,59 +61,65 @@ namespace grrui
 
             var win = new KeyPreviewWindow("grr: Git repositories of RepoZ")
             {
-                filterLabel,
-                _filterField,
-                _repositoryList
             };
+            win.Add(filterLabel);
+            win.Add(_filterField);
+            win.Add(_repositoryList);
+
 
             var buttonX = Pos.Left(filterLabel);
 
             var navigationButton = new Button("Navigate")
             {
-                Clicked = Navigate,
+                //Clicked = Navigate,
                 X = buttonX,
                 Y = Pos.AnchorEnd(1),
                 CanFocus = false
             };
+            navigationButton.Clicked += Navigate;
 
             if (!CanNavigate)
-                navigationButton.Clicked = CopyNavigationCommandAndQuit;
+                navigationButton.Clicked += CopyNavigationCommandAndQuit;
 
             buttonX = buttonX + navigationButton.Text.Length + BUTTON_BORDER + BUTTON_DISTANCE;
             var copyPathButton = new Button("Copy")
             {
-                Clicked = Copy,
+
                 X = buttonX,
                 Y = Pos.AnchorEnd(1),
                 CanFocus = false
             };
+            copyPathButton.Clicked += Copy;
 
             buttonX = buttonX + copyPathButton.Text.Length + BUTTON_BORDER + BUTTON_DISTANCE;
             var browseButton = new Button("Browse")
             {
-                Clicked = Browse,
                 X = buttonX,
                 Y = Pos.AnchorEnd(1),
                 CanFocus = false
             };
+            browseButton.Clicked += Browse;
 
             var quitButton = new Button("Quit")
             {
-                Clicked = Application.RequestStop,
                 X = Pos.AnchorEnd("Quit".Length + BUTTON_BORDER + BUTTON_DISTANCE),
                 Y = Pos.AnchorEnd(1),
                 CanFocus = false
             };
+            quitButton.Clicked += () =>
+            {
+                Application.RequestStop();
+            };
 
             win.Add(navigationButton, copyPathButton, browseButton, quitButton);
 
-            win.DefineKeyAction(Key.Enter, () => win.SetFocus(_repositoryList));
+            win.DefineKeyAction(Key.Enter, () => _repositoryList.SetFocus());
             win.DefineKeyAction(Key.Esc, () =>
             {
                 if (_filterField.HasFocus)
                     SetFilterText("");
                 else
-                    win.SetFocus(_filterField);
+                    _filterField.SetFocus();
             });
 
             if (args?.Length > 0)
@@ -123,7 +133,7 @@ namespace grrui
         {
             _filterField.Text = filter;
             _filterField.PositionCursor();
-            FilterField_Changed(_filterField, NStack.ustring.Empty);
+            FilterField_Changed(_filterField);
         }
 
         private static void Navigate()
@@ -178,7 +188,7 @@ namespace grrui
             }
         }
 
-        private static void FilterField_Changed(object sender, NStack.ustring e)
+        private static void FilterField_Changed(object sender)
         {
             _repositoriesView.Filter = (sender as TextField)?.Text?.ToString() ?? "";
             _repositoryList.SetSource(_repositoriesView.Repositories);

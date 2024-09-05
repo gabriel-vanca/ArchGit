@@ -10,7 +10,7 @@ namespace grrui.UI
         {
             int width = message.Length + 6;
             int height = 5;
-            int lines = Label.MeasureLines(message, width);
+            //int lines = Label.MeasureLines(message, width);
 
             var dialog = new Dialog(null, width, height);
 

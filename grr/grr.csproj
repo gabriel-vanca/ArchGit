@@ -10,7 +10,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/awaescher/RepoZ/master/grr/grr.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/awaescher/RepoZ</RepositoryUrl>
     <ReleaseVersion>4.0</ReleaseVersion>
-    <Version>1.0.0.0</Version>
+    <Version>3.0.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

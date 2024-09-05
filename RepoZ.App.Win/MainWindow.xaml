@@ -24,7 +24,8 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    >
     <Window.Resources>
         <converters:UtcToHumanizedLocalDateTimeConverter x:Key="UtcToHumanizedLocalDateTimeConverter" />
     </Window.Resources>
@@ -33,7 +34,8 @@
         <materialDesign:Transitioner
             Name="transitionerMain"
             Focusable="False"
-            SelectedIndex="0">
+            SelectedIndex="0"
+            >
 
             <Grid>
                 <TextBlock
@@ -45,7 +47,8 @@
                     Foreground="Gray"
                     Text="{DynamicResource EmptyHint}"
                     TextAlignment="Center"
-                    TextWrapping="Wrap" />
+                    TextWrapping="Wrap"
+                    />
 
                 <DockPanel x:Name="dockMain" Focusable="False">
                     <Grid DockPanel.Dock="Top" Focusable="False">
@@ -60,13 +63,15 @@
                         <Grid
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
-                            Focusable="False">
+                            Focusable="False"
+                            >
                             <controls:ZTextBox
                                 x:Name="txtFilter"
                                 VerticalAlignment="Top"
                                 Finish="txtFilter_Finish"
                                 FontSize="17"
-                                TextChanged="txtFilter_TextChanged" />
+                                TextChanged="txtFilter_TextChanged"
+                                />
 
                             <TextBlock
                                 HorizontalAlignment="Left"
@@ -75,7 +80,8 @@
                                 FontSize="15"
                                 Foreground="Gray"
                                 IsHitTestVisible="False"
-                                Text="{DynamicResource SearchWin}">
+                                Text="{DynamicResource SearchWin}"
+                                >
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -103,7 +109,8 @@
                             Cursor="Arrow"
                             FontSize="17"
                             Foreground="{DynamicResource MaterialDesignBody}"
-                            Style="{DynamicResource MaterialDesignFlatButton}">
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            >
                             <Button.ContextMenu>
                                 <controls:AcrylicContextMenu x:Name="SettingsMenu">
 
@@ -111,7 +118,8 @@
                                         <controls:AcrylicMenuItem
                                             x:Name="ScanMenuItem"
                                             Click="ScanButton_Click"
-                                            Header="{DynamicResource ScanComputer}" />
+                                            Header="{DynamicResource ScanComputer}"
+                                            />
                                         <controls:AcrylicMenuItem Click="ClearButton_Click" Header="{DynamicResource Clear}" />
                                         <Separator />
                                         <controls:AcrylicMenuItem Click="CustomizeContextMenu_Click" Header="{DynamicResource CustomizeRepositoryActions}" />
@@ -123,27 +131,32 @@
                                         <controls:AcrylicMenuItem
                                             Header="{DynamicResource Off}"
                                             IsCheckable="True"
-                                            IsChecked="{Binding AutoFetchOff}" />
+                                            IsChecked="{Binding AutoFetchOff}"
+                                            />
                                         <Separator />
                                         <controls:AcrylicMenuItem
                                             Header="{DynamicResource Discretely}"
                                             IsCheckable="True"
-                                            IsChecked="{Binding AutoFetchDiscretely}" />
+                                            IsChecked="{Binding AutoFetchDiscretely}"
+                                            />
                                         <controls:AcrylicMenuItem
                                             Header="{DynamicResource Adequate}"
                                             IsCheckable="True"
-                                            IsChecked="{Binding AutoFetchAdequate}" />
+                                            IsChecked="{Binding AutoFetchAdequate}"
+                                            />
                                         <controls:AcrylicMenuItem
                                             Header="{DynamicResource Aggresive}"
                                             IsCheckable="True"
-                                            IsChecked="{Binding AutoFetchAggresive}" />
+                                            IsChecked="{Binding AutoFetchAggresive}"
+                                            />
                                     </controls:AcrylicMenuItem>
 
                                     <controls:AcrylicMenuItem Header="{DynamicResource Advanced}">
                                         <controls:AcrylicMenuItem
                                             Header="{DynamicResource PruneOnFetch}"
                                             IsCheckable="True"
-                                            IsChecked="{Binding PruneOnFetch}" />
+                                            IsChecked="{Binding PruneOnFetch}"
+                                            />
                                     </controls:AcrylicMenuItem>
 
                                     <Separator />
@@ -152,16 +165,19 @@
                                         <controls:AcrylicMenuItem
                                             Click="SponsorButton_Click"
                                             Foreground="{DynamicResource MaterialDesignBody}"
-                                            Header="{DynamicResource Donate}" />
+                                            Header="{DynamicResource Donate}"
+                                            />
                                         <Separator />
                                         <controls:AcrylicMenuItem
                                             Click="FollowButton_Click"
                                             Foreground="{DynamicResource MaterialDesignBody}"
-                                            Header="{DynamicResource Follow}" />
+                                            Header="{DynamicResource Follow}"
+                                            />
                                         <controls:AcrylicMenuItem
                                             Click="StarButton_Click"
                                             Foreground="{DynamicResource MaterialDesignBody}"
-                                            Header="{DynamicResource Star}" />
+                                            Header="{DynamicResource Star}"
+                                            />
                                     </controls:AcrylicMenuItem>
 
                                     <Separator />
@@ -186,7 +202,8 @@
                             FontSize="17"
                             Foreground="{DynamicResource MaterialDesignBody}"
                             Style="{DynamicResource MaterialDesignFlatButton}"
-                            Visibility="Visible" />
+                            Visibility="Visible"
+                            />
                     </Grid>
 
                     <ListBox
@@ -200,7 +217,8 @@
                         KeyDown="lstRepositories_KeyDown"
                         MouseDoubleClick="lstRepositories_MouseDoubleClick"
                         ScrollViewer.CanContentScroll="False"
-                        SelectionMode="Extended">
+                        SelectionMode="Extended"
+                        >
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling" />
@@ -214,23 +232,27 @@
                                         Foreground="{DynamicResource AccentColorBrush}"
                                         Text="{Binding Name}"
                                         TextElement.FontSize="17"
-                                        ToolTip="{Binding Path}" />
+                                        ToolTip="{Binding Path}"
+                                        />
                                     <TextBlock
                                         Margin="8,3,8,3"
                                         FontSize="13.5"
-                                        Text="{Binding CurrentBranch}" />
+                                        Text="{Binding CurrentBranch}"
+                                        />
                                     <Border
                                         Margin="8,5,8,3"
                                         Padding="6,2,6,2"
                                         HorizontalAlignment="Left"
                                         Background="#14FFFFFF"
                                         BorderThickness="0"
-                                        CornerRadius="5">
+                                        CornerRadius="5"
+                                        >
                                         <!--  {materialDesign:MaterialDesignFont}  -->
                                         <TextBlock
                                             FontFamily="Source Code Pro"
                                             FontSize="13.5"
-                                            Text="{Binding Status}">
+                                            Text="{Binding Status}"
+                                            >
                                             <TextBlock.ToolTip>
                                                 <TextBlock Text="{Binding UpdateStampUtc, StringFormat=HH:mm:ss, Converter={StaticResource UtcToHumanizedLocalDateTimeConverter}}" />
                                             </TextBlock.ToolTip>
@@ -251,11 +273,13 @@
                         Name="txtHelpCaption"
                         TextElement.FontSize="12"
                         TextElement.FontWeight="Bold"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap"
+                        />
                     <TextBlock
                         Name="txtHelp"
                         TextElement.FontSize="12"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap"
+                        />
                     <Button Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}" Content="{DynamicResource GotIt}" />
                 </StackPanel>
             </ScrollViewer>

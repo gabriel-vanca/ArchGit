@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Terminal.Gui" Version="0.81.0" />
+    <PackageReference Include="Terminal.Gui" Version="1.17.1" />
     <PackageReference Include="TextCopy" Version="6.2.1" />
   </ItemGroup>
 

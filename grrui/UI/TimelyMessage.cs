@@ -7,6 +7,7 @@ using Terminal.Gui;
 
 namespace grrui.UI
 {
+<<<<<<< HEAD
 	public static class TimelyMessage
 	{
 		public static void ShowMessage(string message, TimeSpan duration)
@@ -14,6 +15,15 @@ namespace grrui.UI
 			int width = message.Length + 6;
 			int height = 5;
 			int lines = Label.MeasureLines(message, width);
+=======
+    public static class TimelyMessage
+    {
+        public static void ShowMessage(string message, TimeSpan duration)
+        {
+            int width = message.Length + 6;
+            int height = 5;
+            //int lines = Label.MeasureLines(message, width);
+>>>>>>> 4e2f094 (terminal fixed)
 
 			var dialog = new Dialog(null, width, height);
 

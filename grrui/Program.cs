@@ -18,10 +18,21 @@ namespace grrui
 		private static RepositoriesView _repositoriesView;
 		private static TextField _filterField;
 
+<<<<<<< HEAD
 		static void Main(string[] args)
 		{
 			_client = new IpcClient(new DefaultIpcEndpoint());
 			var answer = _client.GetRepositories();
+=======
+        static void Main(string[] args)
+        {
+#if DEBUG
+            Console.WriteLine("Waiting a few seconds for server to initialise and load the data...");
+            System.Threading.Thread.Sleep(7000);
+#endif
+            _client = new IpcClient(new DefaultIpcEndpoint());
+            var answer = _client.GetRepositories();
+>>>>>>> 4e2f094 (terminal fixed)
 
 			var repositoryCount = answer?.Repositories?.Length ?? 0;
 			if (repositoryCount == 0)
@@ -38,6 +49,7 @@ namespace grrui
 
 			Application.Init();
 
+<<<<<<< HEAD
 			var filterLabel = new Label(1, 1, "Filter: ");
 			_filterField = new TextField("")
 			{
@@ -46,6 +58,16 @@ namespace grrui
 				Width = Dim.Fill(margin: 1),
 			};
 			_filterField.Changed += FilterField_Changed;
+=======
+            var filterLabel = new Label(1, 1, "Filter: ");
+            _filterField = new TextField("")
+            {
+                X = Pos.Right(filterLabel) + 2,
+                Y = Pos.Top(filterLabel),
+                Width = Dim.Fill(margin: 1),
+            };
+            _filterField.TextChanged += FilterField_Changed;
+>>>>>>> 4e2f094 (terminal fixed)
 
 			_repositoryList = new ListView(_repositoriesView.Repositories)
 			{
@@ -55,15 +77,26 @@ namespace grrui
 				Height = Dim.Fill() - 2
 			};
 
+<<<<<<< HEAD
 			var win = new KeyPreviewWindow("grr: Git repositories of RepoZ")
 			{
 				filterLabel,
 				_filterField,
 				_repositoryList
 			};
+=======
+            var win = new KeyPreviewWindow("grr: Git repositories of RepoZ")
+            {
+            };
+            win.Add(filterLabel);
+            win.Add(_filterField);
+            win.Add(_repositoryList);
+
+>>>>>>> 4e2f094 (terminal fixed)
 
 			var buttonX = Pos.Left(filterLabel);
 
+<<<<<<< HEAD
 			var navigationButton = new Button("Navigate")
 			{
 				Clicked = Navigate,
@@ -100,9 +133,53 @@ namespace grrui
 				Y = Pos.AnchorEnd(1),
 				CanFocus = false
 			};
+=======
+            var navigationButton = new Button("Navigate")
+            {
+                //Clicked = Navigate,
+                X = buttonX,
+                Y = Pos.AnchorEnd(1),
+                CanFocus = false
+            };
+            navigationButton.Clicked += Navigate;
+
+            if (!CanNavigate)
+                navigationButton.Clicked += CopyNavigationCommandAndQuit;
+
+            buttonX = buttonX + navigationButton.Text.Length + BUTTON_BORDER + BUTTON_DISTANCE;
+            var copyPathButton = new Button("Copy")
+            {
+
+                X = buttonX,
+                Y = Pos.AnchorEnd(1),
+                CanFocus = false
+            };
+            copyPathButton.Clicked += Copy;
+
+            buttonX = buttonX + copyPathButton.Text.Length + BUTTON_BORDER + BUTTON_DISTANCE;
+            var browseButton = new Button("Browse")
+            {
+                X = buttonX,
+                Y = Pos.AnchorEnd(1),
+                CanFocus = false
+            };
+            browseButton.Clicked += Browse;
+
+            var quitButton = new Button("Quit")
+            {
+                X = Pos.AnchorEnd("Quit".Length + BUTTON_BORDER + BUTTON_DISTANCE),
+                Y = Pos.AnchorEnd(1),
+                CanFocus = false
+            };
+            quitButton.Clicked += () =>
+            {
+                Application.RequestStop();
+            };
+>>>>>>> 4e2f094 (terminal fixed)
 
 			win.Add(navigationButton, copyPathButton, browseButton, quitButton);
 
+<<<<<<< HEAD
 			win.DefineKeyAction(Key.Enter, () => win.SetFocus(_repositoryList));
 			win.DefineKeyAction(Key.Esc, () =>
 			{
@@ -111,6 +188,16 @@ namespace grrui
 				else
 					win.SetFocus(_filterField);
 			});
+=======
+            win.DefineKeyAction(Key.Enter, () => _repositoryList.SetFocus());
+            win.DefineKeyAction(Key.Esc, () =>
+            {
+                if (_filterField.HasFocus)
+                    SetFilterText("");
+                else
+                    _filterField.SetFocus();
+            });
+>>>>>>> 4e2f094 (terminal fixed)
 
 			if (args?.Length > 0)
 				SetFilterText(String.Join(" ", args));
@@ -119,12 +206,21 @@ namespace grrui
 			Application.Run();
 		}
 
+<<<<<<< HEAD
 		private static void SetFilterText(string filter)
 		{
 			_filterField.Text = filter;
 			_filterField.PositionCursor();
 			FilterField_Changed(_filterField, NStack.ustring.Empty);
 		}
+=======
+        private static void SetFilterText(string filter)
+        {
+            _filterField.Text = filter;
+            _filterField.PositionCursor();
+            FilterField_Changed(_filterField);
+        }
+>>>>>>> 4e2f094 (terminal fixed)
 
 		private static void Navigate()
 		{
@@ -178,11 +274,19 @@ namespace grrui
 			}
 		}
 
+<<<<<<< HEAD
 		private static void FilterField_Changed(object sender, NStack.ustring e)
 		{
 			_repositoriesView.Filter = (sender as TextField)?.Text?.ToString() ?? "";
 			_repositoryList.SetSource(_repositoriesView.Repositories);
 		}
+=======
+        private static void FilterField_Changed(object sender)
+        {
+            _repositoriesView.Filter = (sender as TextField)?.Text?.ToString() ?? "";
+            _repositoryList.SetSource(_repositoriesView.Repositories);
+        }
+>>>>>>> 4e2f094 (terminal fixed)
 
 		private static bool CanNavigate => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 	}
